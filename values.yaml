@@ -1,0 +1,40 @@
+---
+prometheus:
+  prometheusSpec:
+    podMonitorSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false
+
+alertmanager:
+  config:
+    global:
+      slack_api_url: <SLACK_URL_YOU_HAVE_COPIED_FORM_BEFORE>
+  alertmanagerSpec:
+    alertmanagerConfigNamespaceSelector:
+    alertmanagerConfigSelector:
+    alertmanagerConfigMatcherStrategy:
+      type: None
+
+grafana:
+  enabled: true
+  defaultDashboardsTimezone: Asia/Kolkata
+  env:
+    GF_SERVER_ROOT_URL: https://grafana.minikube.local/
+
+  admin:
+    existingSecret: grafana-admin
+    passwordKey: admin-password
+    userKey: admin-user
+
+  ingress:
+    enabled: true
+    hosts:
+    - grafana.minikube.local
+
+windowsMonitoring:
+  enabled: false
+
+kubeScheduler:
+  enabled: false
+
+kubeControllerManager:
+  enabled: false
